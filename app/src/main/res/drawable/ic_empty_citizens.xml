@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="160dp"
+    android:viewportWidth="160"
+    android:viewportHeight="160">
+
+    <!-- Outer glow ring -->
+    <path
+        android:fillColor="#110DCAF0"
+        android:pathData="M80,80m-80,0a80,80 0,1 1,160 0a80,80 0,1 1,-160 0" />
+
+    <!-- Mid ring -->
+    <path
+        android:fillColor="#1A0DCAF0"
+        android:pathData="M80,80m-62,0a62,62 0,1 1,124 0a62,62 0,1 1,-124 0" />
+
+    <!-- Inner circle -->
+    <path
+        android:fillColor="#22111D45"
+        android:pathData="M80,80m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0" />
+
+    <!-- Person 1 (left, smaller) -->
+    <path
+        android:fillColor="#6C63FF"
+        android:fillAlpha="0.6"
+        android:pathData="M52,72 C47.582,72 44,68.418 44,64 C44,59.582 47.582,56 52,56 C56.418,56 60,59.582 60,64 C60,68.418 56.418,72 52,72 Z" />
+    <path
+        android:fillColor="#6C63FF"
+        android:fillAlpha="0.4"
+        android:pathData="M36,96 C36,86 43.163,80 52,80 C60.837,80 68,86 68,96 Z" />
+
+    <!-- Person 2 (right, smaller) -->
+    <path
+        android:fillColor="#6C63FF"
+        android:fillAlpha="0.6"
+        android:pathData="M108,72 C103.582,72 100,68.418 100,64 C100,59.582 103.582,56 108,56 C112.418,56 116,59.582 116,64 C116,68.418 112.418,72 108,72 Z" />
+    <path
+        android:fillColor="#6C63FF"
+        android:fillAlpha="0.4"
+        android:pathData="M92,96 C92,86 99.163,80 108,80 C116.837,80 124,86 124,96 Z" />
+
+    <!-- Person 3 (center, prominent, cyan) -->
+    <path
+        android:fillColor="#0DCAF0"
+        android:pathData="M80,74 C74.477,74 70,69.523 70,64 C70,58.477 74.477,54 80,54 C85.523,54 90,58.477 90,64 C90,69.523 85.523,74 80,74 Z" />
+    <path
+        android:fillColor="#0DCAF0"
+        android:fillAlpha="0.8"
+        android:pathData="M60,100 C60,88 69.072,82 80,82 C90.928,82 100,88 100,100 Z" />
+
+    <!-- Plus icon (top right of center person — "add" concept) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.9"
+        android:pathData="M96,44 L96,38 L100,38 L100,44 L106,44 L106,48 L100,48 L100,54 L96,54 L96,48 L90,48 L90,44 Z" />
+
+    <!-- Shine highlight on center head -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.2"
+        android:pathData="M75,57 C73,59 72,62 72,64 C72,61 73,58 75,57 Z" />
+
+</vector>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand -->
+    <color name="color_primary">#6C63FF</color>
+    <color name="color_primary_variant">#5A54D4</color>
+    <color name="color_on_primary">#FFFFFF</color>
+
+    <!-- Accent / Secondary (Neon Cyan) -->
+    <color name="color_secondary">#0DCAF0</color>
+    <color name="color_secondary_variant">#00A8CC</color>
+    <color name="color_on_secondary">#000000</color>
+
+    <!-- Tertiary (Electric Purple) -->
+    <color name="color_tertiary">#9C27B0</color>
+    <color name="color_tertiary_variant">#AB47BC</color>
+
+    <!-- Neon Green for AQI Good -->
+    <color name="color_aqi_good">#39FF14</color>
+    <!-- Amber for AQI Moderate -->
+    <color name="color_aqi_moderate">#FFB300</color>
+    <!-- Red for AQI Poor -->
+    <color name="color_aqi_poor">#FF5252</color>
+
+    <!-- Background / Surface (Deep Navy) -->
+    <color name="color_background">#040D21</color>
+    <color name="color_surface">#0B1638</color>
+    <color name="color_surface_variant">#111D45</color>
+    <color name="color_surface_elevated">#162248</color>
+    <color name="color_on_background">#FFFFFF</color>
+    <color name="color_on_surface">#FFFFFF</color>
+
+    <!-- Error -->
+    <color name="color_error">#FF5252</color>
+    <color name="color_on_error">#FFFFFF</color>
+
+    <!-- Card / Divider -->
+    <color name="color_card">#0F1D42</color>
+    <color name="color_card_stroke">#1E3060</color>
+    <color name="color_divider">#1A2D5A</color>
+    <color name="color_hint">#607090</color>
+    <color name="color_text_secondary">#99B4D4</color>
+
+    <!-- Toolbar -->
+    <color name="color_toolbar">#060F28</color>
+
+    <!-- Status bar -->
+    <color name="color_status_bar">#040D21</color>
+
+    <!-- White overlay -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Glow / Accent overlays -->
+    <color name="glow_cyan">#330DCAF0</color>
+    <color name="glow_purple">#336C63FF</color>
+
+    <!-- Gradients -->
+    <color name="gradient_start">#6C63FF</color>
+    <color name="gradient_mid">#0DCAF0</color>
+    <color name="gradient_end">#0B1638</color>
+</resources>

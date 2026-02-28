@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ripple effect for cards -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#330DCAF0">
+    <item android:drawable="@drawable/item_card_bg" />
+</ripple>
+

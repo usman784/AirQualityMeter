@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <!-- Background circle fill -->
+    <path
+        android:fillColor="#111D45"
+        android:pathData="M48,48m-48,0a48,48 0,1 1,96 0a48,48 0,1 1,-96 0" />
+
+    <!-- Subtle inner gradient ring (lighter circle) -->
+    <path
+        android:fillColor="#1A0DCAF0"
+        android:pathData="M48,48m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0" />
+
+    <!-- Head -->
+    <path
+        android:fillColor="#0DCAF0"
+        android:pathData="M48,18 C40.268,18 34,24.268 34,32 C34,39.732 40.268,46 48,46 C55.732,46 62,39.732 62,32 C62,24.268 55.732,18 48,18 Z" />
+
+    <!-- Shoulders / body -->
+    <path
+        android:fillColor="#6C63FF"
+        android:pathData="M20,78 C20,62 32.536,52 48,52 C63.464,52 76,62 76,78 L20,78 Z" />
+
+    <!-- Highlight on head -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.15"
+        android:pathData="M42,22 C39,24 37,28 37,32 C37,28 39,25 42,22 Z" />
+
+</vector>

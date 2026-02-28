@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Air Quality Predictions</string>
+
+    <!-- Auth -->
+    <string name="sign_out">Sign Out</string>
+    <string name="app_tagline">Monitor. Protect. Breathe.</string>
+    <string name="signing_in">Authenticating…</string>
+    <string name="auth_error">Authentication failed. Please try again.</string>
+
+    <!-- Admin -->
+    <string name="admin_title">Admin — Citizens</string>
+    <string name="citizens_list">Citizens List</string>
+    <string name="no_citizens">No Citizens Yet</string>
+    <string name="no_citizens_sub">Registered citizens will appear here once they sign up and complete their profile.</string>
+    <string name="citizen_age">Age: %1$s</string>
+    <string name="citizen_gender">Gender: %1$s</string>
+    <string name="citizen_cell">Cell: %1$s</string>
+
+    <!-- Citizen Profile -->
+    <string name="profile_title">My Profile</string>
+    <string name="hint_name">Full Name</string>
+    <string name="hint_age">Age</string>
+    <string name="hint_gender">Gender</string>
+    <string name="hint_cell">Cell Number</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="profile_saved">Profile saved successfully!</string>
+    <string name="profile_save_failed">Failed to save profile. Try again.</string>
+    <string name="profile_load_failed">Failed to load profile.</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_confirm_title">Delete Account?</string>
+    <string name="delete_confirm_message">This will permanently delete your profile and account. This cannot be undone.</string>
+    <string name="delete_confirm_yes">Delete</string>
+    <string name="delete_confirm_no">Cancel</string>
+    <string name="account_deleted">Account deleted successfully.</string>
+    <string name="account_delete_failed">Failed to delete account. Try again.</string>
+
+    <!-- Validation -->
+    <string name="error_name_empty">Name is required.</string>
+    <string name="error_age_empty">Age is required.</string>
+    <string name="error_age_invalid">Enter a valid age (1–120).</string>
+    <string name="error_gender_empty">Please select a gender.</string>
+    <string name="error_cell_empty">Cell number is required.</string>
+    <string name="error_cell_invalid">Enter a valid cell number.</string>
+
+    <!-- Gender options -->
+    <string-array name="gender_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <!-- Profile layout strings -->
+    <string name="profile_default_name">My Profile</string>
+    <string name="profile_avatar_emoji">👤</string>
+    <string name="camera_badge_emoji">📷</string>
+    <string name="section_personal_info">PERSONAL INFORMATION</string>
+    <string name="hint_phone_number">3XX XXXXXXX</string>
+    <string name="label_danger_zone">DANGER ZONE</string>
+    <string name="avatar_initial_placeholder">\?</string>
+
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Outer glow ring -->
+    <path
+        android:fillColor="#220DCAF0"
+        android:pathData="M60,60m-60,0a60,60 0,1 1,120 0a60,60 0,1 1,-120 0" />
+
+    <!-- Middle ring -->
+    <path
+        android:fillColor="#331A6CFF"
+        android:pathData="M60,60m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0" />
+
+    <!-- Inner circle -->
+    <path
+        android:fillColor="#440DCAF0"
+        android:pathData="M60,60m-38,0a38,38 0,1 1,76 0a38,38 0,1 1,-76 0" />
+
+    <!-- Wind stream 1 (top) -->
+    <path
+        android:strokeColor="#0DCAF0"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M32,46 C38,46 42,40 50,40 C58,40 62,46 70,46 C78,46 82,40 88,40" />
+
+    <!-- Wind stream 2 (middle) -->
+    <path
+        android:strokeColor="#0DCAF0"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M26,58 C34,58 38,52 48,52 C58,52 62,58 72,58 C82,58 86,52 94,52" />
+
+    <!-- Wind stream 3 (bottom) -->
+    <path
+        android:strokeColor="#6C63FF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M32,70 C38,70 42,76 50,76 C58,76 62,70 70,70 C78,70 82,76 88,76" />
+
+    <!-- Center dot glow -->
+    <path
+        android:fillColor="#0DCAF0"
+        android:pathData="M60,60m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" />
+
+    <!-- Shine -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.15"
+        android:pathData="M40,36 C44,32 52,30 58,32 C52,30 44,34 40,36 Z" />
+
+</vector>
+

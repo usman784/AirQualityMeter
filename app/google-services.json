@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "965470000635",
+    "project_id": "air-quilty-index",
+    "storage_bucket": "air-quilty-index.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965470000635:android:bfa7abdd82edd63695675e",
+        "android_client_info": {
+          "package_name": "com.air.quality.meter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965470000635-k7lo699ud32m5ropu0uil8lng3je1uc3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7EzolapvnmO2FWdAwGI6lcr_UQ52mrEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965470000635-k7lo699ud32m5ropu0uil8lng3je1uc3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

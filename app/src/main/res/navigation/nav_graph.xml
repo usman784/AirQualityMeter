@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <!-- Splash / Auth Router -->
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.air.quality.meter.ui.fragments.splash.SplashFragment"
+        android:label="Air Quality Meter"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splash_to_admin"
+            app:destination="@id/adminFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_splash_to_citizen"
+            app:destination="@id/citizenProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Admin Fragment -->
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.air.quality.meter.ui.fragments.admin.AdminFragment"
+        android:label="@string/admin_title"
+        tools:layout="@layout/fragment_admin">
+
+        <action
+            android:id="@+id/action_admin_to_splash"
+            app:destination="@id/splashFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Citizen Profile Fragment -->
+    <fragment
+        android:id="@+id/citizenProfileFragment"
+        android:name="com.air.quality.meter.ui.fragments.citizen.CitizenProfileFragment"
+        android:label="@string/profile_title"
+        tools:layout="@layout/fragment_citizen_profile">
+
+        <action
+            android:id="@+id/action_citizen_to_splash"
+            app:destination="@id/splashFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/app/src/main/res/drawable/bg_ccp_field.xml">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/app/src/main/res/drawable/bg_ccp_field.xml" />
+              <option name="originalContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&#10;    android:shape=&quot;rectangle&quot;&gt;&#10;    &lt;gradient&#10;        android:type=&quot;linear&quot;&#10;        android:angle=&quot;135&quot;&#10;        android:startColor=&quot;#1A0DCAF0&quot;&#10;        android:endColor=&quot;#1A6C63FF&quot; /&gt;&#10;    &lt;corners android:radius=&quot;14dp&quot; /&gt;&#10;    &lt;stroke android:width=&quot;1dp&quot; android:color=&quot;#440DCAF0&quot; /&gt;&#10;&lt;/shape&gt;&#10;" />
+              <option name="updatedContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&#10;    android:shape=&quot;rectangle&quot;&gt;&#10;    &lt;gradient&#10;        android:type=&quot;linear&quot;&#10;        android:angle=&quot;135&quot;&#10;        android:startColor=&quot;#1A0DCAF0&quot;&#10;        android:endColor=&quot;#1A6C63FF&quot; /&gt;&#10;    &lt;corners android:radius=&quot;14dp&quot; /&gt;&#10;    &lt;stroke android:width=&quot;1dp&quot; android:color=&quot;#440DCAF0&quot; /&gt;&#10;&lt;/shape&gt;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
