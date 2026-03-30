@@ -21,6 +21,14 @@
     <!-- Red for AQI Poor -->
     <color name="color_aqi_poor">#FF5252</color>
 
+    <!-- AQI category colors (US EPA — used by AQIClassifier) -->
+    <color name="aqi_good">#00E400</color>
+    <color name="aqi_moderate">#FFFF00</color>
+    <color name="aqi_sensitive">#FF7E00</color>
+    <color name="aqi_unhealthy">#FF0000</color>
+    <color name="aqi_very_unhealthy">#8F3F97</color>
+    <color name="aqi_hazardous">#7E0023</color>
+
     <!-- Background / Surface (Deep Navy) -->
     <color name="color_background">#040D21</color>
     <color name="color_surface">#0B1638</color>

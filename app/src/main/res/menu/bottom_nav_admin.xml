@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/admin_nav_users"
+        android:icon="@drawable/ic_person"
+        android:title="Users" />
+
+    <item
+        android:id="@+id/admin_nav_datasets"
+        android:icon="@drawable/ic_history"
+        android:title="Datasets" />
+
+    <item
+        android:id="@+id/admin_nav_thresholds"
+        android:icon="@drawable/ic_threshold"
+        android:title="Thresholds" />
+
+    <item
+        android:id="@+id/admin_nav_recommendations"
+        android:icon="@drawable/ic_health"
+        android:title="Health Tips" />
+
+    <item
+        android:id="@+id/admin_nav_logs"
+        android:icon="@drawable/ic_dashboard"
+        android:title="Activity" />
+
+</menu>

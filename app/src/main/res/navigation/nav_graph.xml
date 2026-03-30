@@ -14,7 +14,7 @@
 
         <action
             android:id="@+id/action_splash_to_admin"
-            app:destination="@id/adminFragment"
+            app:destination="@id/adminHomeFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popUpTo="@id/splashFragment"
@@ -22,20 +22,21 @@
 
         <action
             android:id="@+id/action_splash_to_citizen"
-            app:destination="@id/citizenProfileFragment"
+            app:destination="@id/citizenHomeFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
-    <!-- Admin Fragment -->
+    <!-- Admin Home — bottom nav host (tabs: Users, Datasets, Thresholds, Health, Activity) -->
     <fragment
-        android:id="@+id/adminFragment"
-        android:name="com.air.quality.meter.ui.fragments.admin.AdminFragment"
-        android:label="@string/admin_title"
-        tools:layout="@layout/fragment_admin">
+        android:id="@+id/adminHomeFragment"
+        android:name="com.air.quality.meter.ui.fragments.admin.AdminHomeFragment"
+        android:label="Admin Panel"
+        tools:layout="@layout/fragment_admin_home">
 
+        <!-- Sign-out goes back to splash -->
         <action
             android:id="@+id/action_admin_to_splash"
             app:destination="@id/splashFragment"
@@ -45,13 +46,14 @@
             app:popUpToInclusive="true" />
     </fragment>
 
-    <!-- Citizen Profile Fragment -->
+    <!-- Citizen Home — bottom nav host (tabs: Dashboard, Manual, History, Health, Profile) -->
     <fragment
-        android:id="@+id/citizenProfileFragment"
-        android:name="com.air.quality.meter.ui.fragments.citizen.CitizenProfileFragment"
-        android:label="@string/profile_title"
-        tools:layout="@layout/fragment_citizen_profile">
+        android:id="@+id/citizenHomeFragment"
+        android:name="com.air.quality.meter.ui.fragments.citizen.CitizenHomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_citizen_home">
 
+        <!-- Sign-out goes back to splash (called from CitizenProfileFragment tab) -->
         <action
             android:id="@+id/action_citizen_to_splash"
             app:destination="@id/splashFragment"
@@ -59,6 +61,34 @@
             app:exitAnim="@anim/slide_out_right"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_citizen_to_education"
+            app:destination="@id/educationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_citizen_to_about"
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
+    <fragment
+        android:id="@+id/educationFragment"
+        android:name="com.air.quality.meter.ui.fragments.support.EducationFragment"
+        android:label="Health Guides"
+        tools:layout="@layout/fragment_education" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.air.quality.meter.ui.fragments.support.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_about" />
 
 </navigation>

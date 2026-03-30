@@ -176,6 +176,13 @@ class CitizenProfileFragment : Fragment() {
     private fun setupButtons() {
         binding.btnSave.setOnClickListener { saveProfile() }
         binding.btnDelete.setOnClickListener { confirmDelete() }
+
+        binding.btnEducation.setOnClickListener {
+            findNavController().navigate(R.id.action_citizen_to_education)
+        }
+        binding.btnAbout.setOnClickListener {
+            findNavController().navigate(R.id.action_citizen_to_about)
+        }
     }
 
     // ─── Validation ───────────────────────────────────────────────────────────
@@ -276,7 +283,8 @@ class CitizenProfileFragment : Fragment() {
                     .addOnSuccessListener {
                         if (!isAdded) return@addOnSuccessListener
                         showSnack(getString(R.string.account_deleted))
-                        findNavController().navigate(R.id.action_citizen_to_splash)
+                        requireParentFragment().findNavController()
+                            .navigate(R.id.action_citizen_to_splash)
                     }
                     .addOnFailureListener { e ->
                         if (!isAdded) return@addOnFailureListener
@@ -296,7 +304,9 @@ class CitizenProfileFragment : Fragment() {
     private fun signOut() {
         AuthUI.getInstance().signOut(requireContext()).addOnCompleteListener {
             if (!isAdded) return@addOnCompleteListener
-            findNavController().navigate(R.id.action_citizen_to_splash)
+            // Navigate via parent (CitizenHomeFragment) nav controller
+            requireParentFragment().findNavController()
+                .navigate(R.id.action_citizen_to_splash)
         }
     }
 
