@@ -8,11 +8,13 @@ data class UserModel(
     val name: String = "",
     val email: String = "",
     val role: String = "citizen",        // "citizen" | "admin"
+    val isActive: Boolean = true,
     val age: String = "",
     val gender: String = "",
     val cellNumber: String = "",
     val countryCode: String = "+92",
     val fullPhone: String = "",
     val profileImageUrl: String = "",
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    val updatedAt: Long = 0L
 )

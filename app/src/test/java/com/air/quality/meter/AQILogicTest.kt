@@ -14,10 +14,10 @@ class AQILogicTest {
     @Test
     fun test_aqi_classification() {
         // Test Good
-        assertEquals(AQIClassifier.AQICategory.GOOD, AQIClassifier.classify(25f))
+        assertEquals("Good", AQIClassifier.classify(25f).name)
         
         // Test Hazardous
-        assertEquals(AQIClassifier.AQICategory.HAZARDOUS, AQIClassifier.classify(450f))
+        assertEquals("Hazardous", AQIClassifier.classify(450f).name)
     }
 
     @Test

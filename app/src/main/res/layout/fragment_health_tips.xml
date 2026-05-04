@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Health Guide"
+            android:text="Health Guide (AI-Powered)"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Advice based on your current AQI"
+            android:text="AI-powered advice based on your current AQI"
             android:textColor="@color/color_text_secondary"
             android:textSize="13sp"
             android:layout_marginBottom="16dp" />

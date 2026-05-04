@@ -1,5 +1,16 @@
 # Smart Air Quality Prediction & Alert System — FYP Task Checklist
 
+## 🔎 Current Verification Snapshot (Apr 2026)
+- [x] Role-based login routing is implemented (`SplashFragment`) for Admin vs Citizen.
+- [x] Alerts pipeline is implemented: `AqiAlertWorker` + threshold fetch from Firestore + notification advice text.
+- [x] Admin threshold configuration screen is implemented (`AdminThresholdsFragment`).
+- [x] LiteRT/TFLite runtime is integrated in Android (`TFLitePredictor`) with fallback to formula model.
+- [x] ML pipeline scripts added under `ml/` for:
+  - [x] RandomForest / XGBoost training and evaluation (`ml/train_models.py`)
+  - [x] LiteRT export for Android deployment (`ml/export_tflite.py`)
+- [ ] Final model training/evaluation run on your real dataset is pending (generate final metrics for report).
+- [ ] Final exported `aqi_model.tflite` file from your trained dataset is pending.
+
 ## ✅ Phase 1: Project Setup & Authentication (DONE)
 - [x] Project structure created (Android, Kotlin, Firebase)
 - [x] Firebase Authentication integrated

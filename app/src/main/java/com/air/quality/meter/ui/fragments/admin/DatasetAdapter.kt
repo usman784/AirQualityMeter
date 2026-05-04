@@ -11,7 +11,10 @@ import com.air.quality.meter.util.AQIClassifier
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DatasetAdapter : ListAdapter<AQIRecord, DatasetAdapter.VH>(DIFF) {
+class DatasetAdapter(
+    private val onEdit: (AQIRecord) -> Unit,
+    private val onDelete: (AQIRecord) -> Unit
+) : ListAdapter<AQIRecord, DatasetAdapter.VH>(DIFF) {
 
     inner class VH(val b: ItemAqiRecordAdminBinding) : RecyclerView.ViewHolder(b.root) {
         fun bind(record: AQIRecord) {
@@ -20,12 +23,15 @@ class DatasetAdapter : ListAdapter<AQIRecord, DatasetAdapter.VH>(DIFF) {
             b.tvCategory.text = cat.name
             b.tvAqiValue.setTextColor(android.graphics.Color.parseColor(cat.colorHex))
             b.tvLocation.text = "UID: ${record.uid.take(8)}... | ${record.location}"
-            
+            b.tvSource.text = "Source: ${record.source.ifBlank { "admin" }}"
+
             val sdf = SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault())
             b.tvTimestamp.text = sdf.format(Date(record.timestamp))
             b.tvParams.text = "T: %.1f°C | H: %.0f%% | PM2.5: %.1f".format(
                 record.temperature, record.humidity, record.pm25
             )
+            b.btnEdit.setOnClickListener { onEdit(record) }
+            b.btnDelete.setOnClickListener { onDelete(record) }
         }
     }
 

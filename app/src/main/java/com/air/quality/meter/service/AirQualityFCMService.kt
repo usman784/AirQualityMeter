@@ -8,8 +8,11 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.air.quality.meter.R
 import com.air.quality.meter.ui.activity.MainActivity
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.SetOptions
 
 /**
  * Firebase Cloud Messaging service.
@@ -77,10 +80,59 @@ class AirQualityFCMService : FirebaseMessagingService() {
     }
 
     private fun saveFcmToken(token: String) {
-        val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid ?: return
-        com.google.firebase.firestore.FirebaseFirestore.getInstance()
-            .collection("users")
+        val authUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser ?: return
+        val uid = authUser.uid
+        val email = authUser.email?.trim().orEmpty()
+        val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+        val adminCollections = listOf("admin", "admins")
+
+        val adminDocChecks = adminCollections.map { collection ->
+            db.collection(collection).document(uid).get()
+        }
+
+        Tasks.whenAllSuccess<com.google.firebase.firestore.DocumentSnapshot>(adminDocChecks)
+            .addOnSuccessListener { docs ->
+                if (docs.any { it.exists() }) return@addOnSuccessListener
+
+                val adminUidQueries = adminCollections.map { collection ->
+                    db.collection(collection)
+                        .whereEqualTo("uid", uid)
+                        .limit(1)
+                        .get()
+                }
+
+                Tasks.whenAllSuccess<QuerySnapshot>(adminUidQueries)
+                    .addOnSuccessListener { uidSnapshots ->
+                        if (uidSnapshots.any { !it.isEmpty }) return@addOnSuccessListener
+
+                        if (email.isBlank()) {
+                            writeCitizenToken(db, uid, token)
+                            return@addOnSuccessListener
+                        }
+
+                        val adminEmailQueries = adminCollections.map { collection ->
+                            db.collection(collection)
+                                .whereEqualTo("email", email)
+                                .limit(1)
+                                .get()
+                        }
+
+                        Tasks.whenAllSuccess<QuerySnapshot>(adminEmailQueries)
+                            .addOnSuccessListener { emailSnapshots ->
+                                if (emailSnapshots.any { !it.isEmpty }) return@addOnSuccessListener
+                                writeCitizenToken(db, uid, token)
+                            }
+                    }
+            }
+    }
+
+    private fun writeCitizenToken(
+        db: com.google.firebase.firestore.FirebaseFirestore,
+        uid: String,
+        token: String
+    ) {
+        db.collection("users")
             .document(uid)
-            .update("fcmToken", token)
+            .set(mapOf("uid" to uid, "fcmToken" to token), SetOptions.merge())
     }
 }

@@ -5,25 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.air.quality.meter.databinding.FragmentManualEntryBinding
+import com.air.quality.meter.data.model.ActivityLog
 import com.air.quality.meter.data.model.AQIRecord
 import com.air.quality.meter.data.local.AppDatabase
 import com.air.quality.meter.data.repository.AQIRepository
+import com.air.quality.meter.data.repository.UserRepository
 import com.air.quality.meter.util.AQIClassifier
-import com.air.quality.meter.util.AqiMlPredictor
-import com.google.android.material.snackbar.Snackbar
+import com.air.quality.meter.util.TFLitePredictor
 import com.google.firebase.auth.FirebaseAuth
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import java.util.UUID
-import android.graphics.Color
 import android.graphics.Color.parseColor
 
 /**
  * UC03 — Manual Data Entry & AI Prediction.
- * Uses a Multi-Linear Regression AI model (AqiMlPredictor) to estimate AQI.
- * This approach is transparent and easy for students to explain during presentations.
+ * Uses LiteRT / TensorFlow Lite model inference via TFLitePredictor.
+ * Falls back to formula-based AqiMlPredictor if model asset is unavailable.
  */
 class ManualEntryFragment : Fragment() {
 
@@ -34,7 +33,8 @@ class ManualEntryFragment : Fragment() {
     private val repo by lazy {
         AQIRepository(AppDatabase.getInstance(requireContext()).aqiRecordDao())
     }
-    // TFLite removed for simpler student presentation
+    private val userRepo = UserRepository()
+    private lateinit var tflitePredictor: TFLitePredictor
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentManualEntryBinding.inflate(inflater, container, false)
@@ -43,7 +43,7 @@ class ManualEntryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Use AqiMlPredictor directly
+        tflitePredictor = TFLitePredictor(requireContext())
         binding.btnPredict.setOnClickListener { predict() }
     }
 
@@ -55,9 +55,8 @@ class ManualEntryFragment : Fragment() {
         val wind     = binding.etWind.text.toString().toFloat()
         val pm25Raw  = binding.etPm25.text.toString().toFloatOrNull() ?: 0f
 
-        // AI Prediction via Linear Regression ML
-        val aqi = AqiMlPredictor.predict(temp, humidity, wind, pm25Raw)
-        // ──────────────────────────────────────────────────────────────────
+        // Primary path: TFLite inference. Fallback path handled inside TFLitePredictor.
+        val aqi = tflitePredictor.predict(temp, humidity, wind, pm25Raw)
 
         val category = AQIClassifier.classify(aqi)
         showResult(aqi, category, temp, humidity, wind, pm25Raw)
@@ -97,6 +96,14 @@ class ManualEntryFragment : Fragment() {
         )
         lifecycleScope.launch {
             repo.saveManualEntry(record)
+            userRepo.logActivity(
+                ActivityLog(
+                    uid = uid,
+                    action = "MANUAL_SUBMISSION",
+                    details = "Manual AQI submitted: AQI=${aqi.toInt()}, Temp=$temp, Humidity=${humidity.toInt()}%, Wind=$wind",
+                    timestamp = System.currentTimeMillis()
+                )
+            )
             if (isAdded) {
                 binding.chipOfflineNote.visibility = View.VISIBLE
             }
@@ -126,6 +133,7 @@ class ManualEntryFragment : Fragment() {
     }
 
     override fun onDestroyView() { 
+        if (::tflitePredictor.isInitialized) tflitePredictor.close()
         super.onDestroyView()
         _binding = null 
     }

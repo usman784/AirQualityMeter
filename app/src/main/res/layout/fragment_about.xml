@@ -10,6 +10,16 @@
     android:background="@color/color_background"
     android:padding="32dp">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_back"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:text="Back"
+        android:textAllCaps="false"
+        android:layout_marginBottom="8dp" />
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"

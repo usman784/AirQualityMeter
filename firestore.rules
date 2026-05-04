@@ -2,49 +2,117 @@
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Legacy admins support: /admins/{uid} and /admin/{uid}
+    function isLegacyAdmin(uid) {
+      return exists(/databases/$(database)/documents/admins/$(uid)) ||
+             exists(/databases/$(database)/documents/admin/$(uid));
+    }
+
     // Helper to check if user is admin
     function isAdmin() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+      return isSignedIn() && (
+        isLegacyAdmin(request.auth.uid) ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin"
+      );
     }
 
     // [Users Collection]
     // Citizens can read/write their own profile.
-    // Admins can read/delete any user.
+    // Admins can read/write/delete any user.
     match /users/{userId} {
-      allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+
+      // Self-signup defaults to citizen role; admins can create any role.
+      allow create: if isSignedIn()
+                    && request.resource.data.uid == userId
+                    && (
+                      (request.auth.uid == userId && (
+                        !("role" in request.resource.data) ||
+                        request.resource.data.role == "citizen"
+                      )) ||
+                      isAdmin()
+                    );
+
+      // Citizens can update own profile but cannot change their role.
+      allow update: if isSignedIn() && (
+                      isAdmin() ||
+                      (
+                        request.auth.uid == userId &&
+                        request.resource.data.uid == userId &&
+                        request.resource.data.role == resource.data.role
+                      )
+                    );
+
+      allow delete: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+    }
+
+    // [Admin Accounts]
+    // Read is allowed for signed-in users so Splash can resolve role from legacy collections.
+    // Write is admin-only.
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isAdmin();
+    }
+
+    match /admin/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isAdmin();
     }
 
     // [AQI Records]
-    // Citizens can read any record (public data) but only write their own manual entries.
+    // Citizens can only read/write their own records.
     // Admins have full control.
     match /aqi_records/{recordId} {
-      allow read: if request.auth != null;
-      allow create: if request.auth != null;
-      allow update, delete: if request.auth != null && (resource.data.uid == request.auth.uid || isAdmin());
+      allow read: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+
+      allow create: if isSignedIn() && (
+                      isAdmin() ||
+                      request.resource.data.uid == request.auth.uid
+                    );
+
+      allow update, delete: if isSignedIn() && (
+                              isAdmin() ||
+                              (
+                                resource.data.uid == request.auth.uid &&
+                                request.resource.data.uid == resource.data.uid
+                              )
+                            );
     }
 
     // [Health Recommendations]
     // Publicly readable, writeable only by Admins.
     match /recommendations/{tipId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && isAdmin();
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isAdmin();
     }
 
     // [Thresholds & Global Settings]
     // Publicly readable, writeable only by Admins.
     match /settings/{docId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && isAdmin();
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isAdmin();
     }
 
     // [Feedback]
     // Citizens can only CREATE feedback.
     // Admins can READ/DELETE feedback.
     match /feedback/{feedbackId} {
-      allow create: if request.auth != null;
-      allow read, delete: if request.auth != null && isAdmin();
+      allow create: if isSignedIn();
+      allow read, delete: if isSignedIn() && isAdmin();
       allow update: if false;
+    }
+
+    // [Activity Logs]
+    // Any signed-in user can append system activity events.
+    // Admin monitors full logs in UC12.
+    match /activity_logs/{logId} {
+      allow create: if isSignedIn();
+      allow read, update, delete: if isSignedIn() && isAdmin();
     }
   }
 }

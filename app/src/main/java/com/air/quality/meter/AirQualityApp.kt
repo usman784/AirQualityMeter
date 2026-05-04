@@ -54,7 +54,12 @@ class AirQualityApp : Application() {
      * and trigger alerts if threshold exceeded.
      */
    private fun scheduleAqiAlertWorker() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
         val request = PeriodicWorkRequestBuilder<AqiAlertWorker>(1, TimeUnit.HOURS)
+            .setConstraints(constraints)
             .build()
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(

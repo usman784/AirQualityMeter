@@ -13,58 +13,102 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/tv_aqi_value"
-            android:layout_width="52dp"
-            android:layout_height="wrap_content"
-            android:text="150"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+        android:orientation="vertical"
+        android:padding="12dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="12dp"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_category"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_aqi_value"
+                android:layout_width="52dp"
                 android:layout_height="wrap_content"
-                android:text="Unhealthy"
-                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="150"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_location"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="UID: 123... | London"
-                android:textColor="@color/color_text_secondary"
-                android:textSize="11sp" />
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unhealthy"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UID: 123... | London"
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_params"
+                android:id="@+id/tv_timestamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="T: 25C | H: 60%"
-                android:textColor="@color/color_hint"
+                android:textColor="@color/color_text_secondary"
+                android:text="Mar 29"
                 android:textSize="10sp" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_timestamp"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_params"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mar 29"
+            android:layout_marginTop="6dp"
+            android:text="T: 25C | H: 60%"
+            android:textColor="@color/color_hint"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Source: api"
             android:textColor="@color/color_text_secondary"
             android:textSize="10sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_edit"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Edit"
+                android:textSize="11sp"
+                app:strokeColor="@color/color_secondary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="Delete"
+                android:textColor="@color/color_error"
+                android:textSize="11sp"
+                app:strokeColor="@color/color_error" />
+        </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -120,6 +120,9 @@ dependencies {
     // SwipeRefreshLayout (pull-to-refresh on dashboard)
     implementation(libs.swiperefreshlayout)
 
+    // LiteRT / TensorFlow Lite runtime (on-device AQI model inference)
+    implementation(libs.tensorflow.lite)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

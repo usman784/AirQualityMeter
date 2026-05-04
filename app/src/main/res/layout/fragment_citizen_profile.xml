@@ -346,6 +346,27 @@
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:text="›" android:textColor="@color/color_text_secondary" android:textSize="24sp" />
                     </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                        android:background="#1E3060" android:layout_marginHorizontal="20dp" />
+
+                    <!-- Feedback / Report Issues -->
+                    <LinearLayout
+                        android:id="@+id/btn_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="20dp"
+                        android:background="?attr/selectableItemBackground">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="📝" android:textSize="18sp" android:layout_marginEnd="16dp" />
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:text="Feedback / Report Issues"
+                            android:textColor="@color/white" android:textSize="15sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="›" android:textColor="@color/color_text_secondary" android:textSize="24sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -396,4 +417,3 @@
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
-

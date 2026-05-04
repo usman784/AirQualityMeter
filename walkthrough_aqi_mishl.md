@@ -33,6 +33,13 @@ A native Android application that monitors, predicts, and alerts users about rea
 - Citizen profile fragment scaffolded (`CitizenProfileFragment`)
 - Admin fragment scaffolded (`AdminFragment`)
 
+### Update (Implementation Progress Beyond Original Draft)
+- Citizen flow screens are implemented: Dashboard, Manual Entry, History, Health Tips, Profile.
+- Admin flow screens are implemented: Users, Datasets (view), Thresholds, Recommendations, Activity stats.
+- Offline sync worker + alert worker are implemented with Firestore threshold integration.
+- LiteRT runtime path is now wired (`TFLitePredictor`) and ML training/export scripts are available in `ml/`.
+- Remaining for AI sign-off: run training on final dataset and export final `aqi_model.tflite`.
+
 ---
 
 ## Feature Map (14 Use Cases)

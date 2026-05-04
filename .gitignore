@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Python / ML artifacts
+.venv/
+__pycache__/
+*.pyc
+ml/artifacts/

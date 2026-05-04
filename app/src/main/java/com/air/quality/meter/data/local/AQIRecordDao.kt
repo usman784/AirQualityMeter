@@ -27,6 +27,10 @@ interface AQIRecordDao {
     @Query("SELECT * FROM aqi_records WHERE uid = :uid AND timestamp BETWEEN :from AND :to ORDER BY timestamp ASC")
     fun getRecordsInRange(uid: String, from: Long, to: Long): Flow<List<AQIRecord>>
 
+    /** One-shot history query (used for offline fallback rendering). */
+    @Query("SELECT * FROM aqi_records WHERE uid = :uid AND timestamp BETWEEN :from AND :to ORDER BY timestamp ASC")
+    suspend fun getRecordsInRangeOnce(uid: String, from: Long, to: Long): List<AQIRecord>
+
     /** Get all records as a Flow for real-time UI updates */
     @Query("SELECT * FROM aqi_records WHERE uid = :uid ORDER BY timestamp DESC")
     fun getAllRecords(uid: String): Flow<List<AQIRecord>>
@@ -38,6 +42,10 @@ interface AQIRecordDao {
     /** Mark a record as synced after successful Firestore upload */
     @Query("UPDATE aqi_records SET synced = 1 WHERE id = :id")
     suspend fun markSynced(id: String)
+
+    /** Remove one record by id (used after successful cloud sync). */
+    @Query("DELETE FROM aqi_records WHERE id = :id")
+    suspend fun deleteById(id: String)
 
     /** Delete records older than a cutoff timestamp to avoid unbounded local storage */
     @Query("DELETE FROM aqi_records WHERE timestamp < :cutoff")

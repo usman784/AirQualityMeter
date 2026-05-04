@@ -36,6 +36,8 @@ mpandroidchart = "v3.1.0"
 location = "21.0.1"
 # SwipeRefreshLayout
 swiperefresh = "1.1.0"
+# TensorFlow Lite (LiteRT runtime for Android)
+tensorflowLite = "2.17.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -82,6 +84,8 @@ mpandroidchart = { group = "com.github.PhilJay", name = "MPAndroidChart", versio
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "location" }
 # SwipeRefreshLayout
 swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefresh" }
+# TensorFlow Lite
+tensorflow-lite = { group = "org.tensorflow", name = "tensorflow-lite", version.ref = "tensorflowLite" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

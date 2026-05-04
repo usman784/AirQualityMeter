@@ -2,6 +2,7 @@ package com.air.quality.meter.ui.fragments.admin
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,8 @@ import com.air.quality.meter.ui.fragments.citizen.CitizenModel
  * Shows citizen name, email, and a delete action.
  */
 class AdminCitizenAdapter(
+    private val onManage: (CitizenModel) -> Unit,
+    private val onToggleActive: (CitizenModel) -> Unit,
     private val onDelete: (CitizenModel) -> Unit
 ) : ListAdapter<CitizenModel, AdminCitizenAdapter.VH>(DIFF) {
 
@@ -21,6 +24,16 @@ class AdminCitizenAdapter(
             b.tvName.text  = user.name.ifBlank { "—" }
             b.tvEmail.text = user.email
             b.tvAge.text   = if (user.age.isNotBlank()) "Age: ${user.age}" else "Age: —"
+            b.tvAvatar.text = user.name.firstOrNull()?.uppercase() ?: "U"
+            b.tvStatus.text = if (user.isActive) "ACTIVE" else "INACTIVE"
+            b.tvStatus.setTextColor(
+                if (user.isActive) ContextCompat.getColor(b.root.context, com.air.quality.meter.R.color.aqi_good)
+                else ContextCompat.getColor(b.root.context, com.air.quality.meter.R.color.color_error)
+            )
+
+            b.btnManage.setOnClickListener { onManage(user) }
+            b.btnToggleActive.text = if (user.isActive) "Deactivate" else "Activate"
+            b.btnToggleActive.setOnClickListener { onToggleActive(user) }
             b.btnDelete.setOnClickListener { onDelete(user) }
         }
     }

@@ -13,10 +13,19 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_back"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textAllCaps="false"
+            android:layout_marginBottom="8dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send Feedback"
+            android:text="Provide Feedback / Report Issues"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -24,10 +33,44 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Help us improve the app"
+            android:text="Report bugs, share suggestions, or request features"
             android:textColor="@color/color_text_secondary"
             android:textSize="13sp"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="12dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/color_card"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@color/color_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:id="@+id/tv_feedback_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="How it works: 1) Select category  2) Enter your message  3) Submit. Your report is saved in Firebase for admin review."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_login_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Pre-condition: User logged in"
+                    android:textColor="@color/color_secondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -54,7 +97,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     app:boxStrokeColor="@color/color_secondary"
                     app:hintTextColor="@color/color_text_secondary">
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/spinner_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,10 +19,12 @@ import com.air.quality.meter.ui.viewmodel.AQIDashboardViewModel
 import com.air.quality.meter.util.NetworkStatus
 import com.air.quality.meter.util.NetworkStatusTracker
 import com.air.quality.meter.work.SyncWorker
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,8 +40,11 @@ class DashboardFragment : Fragment() {
     private val viewModel: AQIDashboardViewModel by viewModels()
     private lateinit var fusedLocation: FusedLocationProviderClient
     private lateinit var networkTracker: NetworkStatusTracker
+    private val firestore by lazy { FirebaseFirestore.getInstance() }
 
     private val LOCATION_PERMISSION_CODE = 1001
+    private var unsafeThresholdAqi: Float = 151f
+    private var lastWarnedRecordId: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
@@ -51,6 +57,7 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupGreeting()
+        loadAlertThreshold()
         observeState()
         observeNetwork()
         viewModel.loadCached()  // show cached immediately while fetch runs
@@ -121,6 +128,9 @@ class DashboardFragment : Fragment() {
         binding.tvWind.text = "— m/s"
         binding.tvPm25.text = "— µg/m³"
         binding.tvAdvice.text = "Loading…"
+        binding.tvClassificationSummary.text = "Loading AQI classification…"
+        binding.tvClassificationTitle.text = "🧭  AQI Classification"
+        binding.tvAdviceTitle.text = "💡  Health Advice"
     }
 
     private fun bindRecord(record: com.air.quality.meter.data.model.AQIRecord, category: com.air.quality.meter.util.AQIClassifier.AQICategory) {
@@ -147,6 +157,9 @@ class DashboardFragment : Fragment() {
 
         // Health advice
         binding.tvAdvice.text = "${category.emoji}  ${category.advice}"
+        binding.tvClassificationSummary.text =
+            "AQI ${record.aqi.toInt()} is classified as ${category.name} (range ${category.aqiRange})."
+        bindAiPoweredLabels()
 
         // Location
         if (record.location.isNotBlank()) binding.tvLocation.text = record.location
@@ -155,9 +168,45 @@ class DashboardFragment : Fragment() {
         val sdf = SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault())
         binding.tvLastUpdated.text = "Last updated: ${sdf.format(Date(record.timestamp))}"
 
-        // AI Forecast for next 3 hours (Linear Regression ML estimation)
-        //val predictedAqi = AqiMlPredictor.predict(record.temperature + 1.5f, record.humidity + 5.0f, record.windSpeed, record.pm25)
-        //binding.tvPredictedAqi.text = "~ ${predictedAqi.toInt()} AQI"
+        showInAppFallbackAlertIfNeeded(record, category)
+    }
+
+    private fun bindAiPoweredLabels() {
+        binding.tvClassificationTitle.text = "🧭  AQI Classification"
+        binding.tvAdviceTitle.text = "💡  Health Advice (AI-Powered)"
+    }
+
+    private fun loadAlertThreshold() {
+        firestore.collection("settings").document("aqi_thresholds")
+            .get()
+            .addOnSuccessListener { doc ->
+                // "sensitive" is treated as 101–150 upper bound in current admin settings.
+                // In-app unsafe alert should start when AQI becomes 151+.
+                val threshold = (doc.getLong("sensitive") ?: 150L).toFloat() + 1f
+                unsafeThresholdAqi = threshold
+            }
+            .addOnFailureListener {
+                unsafeThresholdAqi = 151f
+            }
+    }
+
+    /**
+     * In-app fallback alert when notifications are disabled.
+     */
+    private fun showInAppFallbackAlertIfNeeded(
+        record: com.air.quality.meter.data.model.AQIRecord,
+        category: com.air.quality.meter.util.AQIClassifier.AQICategory
+    ) {
+        if (record.aqi < unsafeThresholdAqi) return
+        if (NotificationManagerCompat.from(requireContext()).areNotificationsEnabled()) return
+        if (lastWarnedRecordId == record.id) return
+
+        lastWarnedRecordId = record.id
+        Snackbar.make(
+            binding.root,
+            "High AQI (${record.aqi.toInt()} - ${category.name}). Notifications are off, so showing in-app alert: ${category.advice}",
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     // ─── Location ───────────────────────────────────────────────────────────

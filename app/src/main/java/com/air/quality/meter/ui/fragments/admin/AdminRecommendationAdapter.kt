@@ -10,6 +10,7 @@ import com.air.quality.meter.databinding.ItemRecommendationBinding
 import android.view.View
 
 class AdminRecommendationAdapter(
+    private val onEdit: (HealthRecommendation) -> Unit,
     private val onDelete: (HealthRecommendation) -> Unit
 ) : ListAdapter<HealthRecommendation, AdminRecommendationAdapter.VH>(DIFF) {
 
@@ -20,8 +21,10 @@ class AdminRecommendationAdapter(
             b.tvCategoryBadge.text = item.aqiCategory
             b.tvDescription.text = item.description
 
-            // Show and handle delete for admin
+            // Show and handle edit/delete for admin
+            b.btnEditTip.visibility = View.VISIBLE
             b.btnDeleteTip.visibility = View.VISIBLE
+            b.btnEditTip.setOnClickListener { onEdit(item) }
             b.btnDeleteTip.setOnClickListener { onDelete(item) }
         }
     }

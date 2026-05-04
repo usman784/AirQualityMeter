@@ -317,7 +317,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- AI Prediction / Trends -->
+            <!-- AQI Classification (UC14) -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -332,64 +332,31 @@
                     android:orientation="vertical"
                     android:padding="20dp">
                     <TextView
+                        android:id="@+id/tv_classification_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🤖  AI-Based Trend Prediction"
+                        android:text="🧭  AQI Classification"
                         android:textColor="@color/color_secondary"
                         android:textSize="13sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
-                    
-                    <LinearLayout
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/tv_classification_summary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Forecast (Next 3h)"
-                                android:textColor="@color/color_text_secondary"
-                                android:textSize="11sp" />
-                            <TextView
-                                android:id="@+id/tv_predicted_aqi"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="—"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
+                        android:text="Current AQI category and range will appear here."
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="3dp" />
 
-                        <View android:layout_width="1dp" android:layout_height="32dp"
-                            android:background="@color/color_card_stroke" android:layout_marginHorizontal="16dp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Confidence Level"
-                                android:textColor="@color/color_text_secondary"
-                                android:textSize="11sp" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="High (84%)"
-                                android:textColor="@color/aqi_good"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Classification and advice are derived from AQI category thresholds."
+                        android:textColor="@color/color_text_secondary"
+                        android:textSize="11sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -409,6 +376,7 @@
                     android:orientation="vertical"
                     android:padding="18dp">
                     <TextView
+                        android:id="@+id/tv_advice_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="💡  Health Advice"

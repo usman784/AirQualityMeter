@@ -183,6 +183,9 @@ class CitizenProfileFragment : Fragment() {
         binding.btnAbout.setOnClickListener {
             findNavController().navigate(R.id.action_citizen_to_about)
         }
+        binding.btnFeedback.setOnClickListener {
+            findNavController().navigate(R.id.action_citizen_to_feedback)
+        }
     }
 
     // ─── Validation ───────────────────────────────────────────────────────────
@@ -323,4 +326,3 @@ class CitizenProfileFragment : Fragment() {
         _binding = null
     }
 }
-
