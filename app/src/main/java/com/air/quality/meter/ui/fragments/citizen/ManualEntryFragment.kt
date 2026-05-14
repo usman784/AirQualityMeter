@@ -59,16 +59,17 @@ class ManualEntryFragment : Fragment() {
         val aqi = tflitePredictor.predict(temp, humidity, wind, pm25Raw)
 
         val category = AQIClassifier.classify(aqi)
-        showResult(aqi, category, temp, humidity, wind, pm25Raw)
+        val sourceLabel = tflitePredictor.getLastInferenceSourceLabel()
+        showResult(aqi, category, sourceLabel)
         saveEntry(aqi, category.name, temp, humidity, wind, pm25Raw)
     }
 
-    private fun showResult(aqi: Float, cat: AQIClassifier.AQICategory,
-                           temp: Float, humidity: Float, wind: Float, pm25: Float) {
+    private fun showResult(aqi: Float, cat: AQIClassifier.AQICategory, sourceLabel: String) {
         binding.cardResult.visibility = View.VISIBLE
         binding.tvResultEmoji.text    = cat.emoji
         binding.tvResultAqi.text      = "AQI: ${aqi.toInt()}"
         binding.tvResultCategory.text = cat.name
+        binding.tvResultSource.text   = "Prediction Source: $sourceLabel"
         binding.tvResultAdvice.text   = cat.advice
 
         // Card border = AQI color

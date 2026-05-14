@@ -180,6 +180,16 @@
                     android:layout_marginBottom="12dp" />
 
                 <TextView
+                    android:id="@+id/tv_result_source"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Prediction Source: —"
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/tv_result_advice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

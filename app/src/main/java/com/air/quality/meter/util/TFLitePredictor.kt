@@ -20,11 +20,17 @@ import java.nio.channels.FileChannel
  */
 class TFLitePredictor(context: Context) : Closeable {
 
+    enum class InferenceSource {
+        TFLITE,
+        FALLBACK
+    }
+
     private val modelFileName = "aqi_model.tflite"
     private val normFileName = "aqi_model_norm.json"
 
     private var interpreter: Interpreter? = null
     private var normalizer: Normalizer = Normalizer.default()
+    private var lastInferenceSource: InferenceSource = InferenceSource.FALLBACK
 
     init {
         normalizer = loadNormalizer(context.assets) ?: Normalizer.default()
@@ -32,6 +38,7 @@ class TFLitePredictor(context: Context) : Closeable {
             val mappedModel = loadModelFile(context.assets, modelFileName)
             Interpreter(mappedModel)
         }.getOrNull()
+        lastInferenceSource = if (interpreter != null) InferenceSource.TFLITE else InferenceSource.FALLBACK
     }
 
     /**
@@ -41,6 +48,7 @@ class TFLitePredictor(context: Context) : Closeable {
     fun predict(temp: Float, humidity: Float, wind: Float, pm25: Float): Float {
         val tflite = interpreter
         if (tflite == null) {
+            lastInferenceSource = InferenceSource.FALLBACK
             return AqiMlPredictor.predict(temp, humidity, wind, pm25)
         }
 
@@ -55,10 +63,19 @@ class TFLitePredictor(context: Context) : Closeable {
             )
             val output = Array(1) { FloatArray(1) }
             tflite.run(input, output)
+            lastInferenceSource = InferenceSource.TFLITE
             output[0][0].coerceIn(0f, 500f)
         }.getOrElse {
             // Fail-safe path so app never blocks prediction.
+            lastInferenceSource = InferenceSource.FALLBACK
             AqiMlPredictor.predict(temp, humidity, wind, pm25)
+        }
+    }
+
+    fun getLastInferenceSourceLabel(): String {
+        return when (lastInferenceSource) {
+            InferenceSource.TFLITE -> "TFLite"
+            InferenceSource.FALLBACK -> "Fallback"
         }
     }
 
